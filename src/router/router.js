@@ -11,12 +11,7 @@ const routes = [
     component: Vaccinations
   },
   {
-    path: '/orders',
-    name: 'VaccineOrders',
-    component: () => import('../views/VaccineOrders.vue')
-  },
-  {
-    path: "/orders/:producer",
+    path: "/:producer",
     name: "VaccineOrdersByProducer",
     component: () => import("../views/VaccineProducer.vue")
   }

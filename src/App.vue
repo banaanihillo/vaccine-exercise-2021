@@ -2,7 +2,9 @@
   <div>
     <nav>
       <router-link to="/">Vaccinations</router-link>
-      <router-link to="/orders">Orders</router-link>
+      <router-link to="/antiqua">Antiqua</router-link>
+      <router-link to="/solar-buddhica">Solar Buddhica</router-link>
+      <router-link to="/zerpfy">Zerpfy</router-link>
     </nav>
     <main>
       <router-view :today="today" :thirtyDays="thirtyDays">
