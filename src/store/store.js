@@ -30,15 +30,15 @@ export default new Vuex.Store({
   state: {
     vaccinations,
     antiqua: {
-      orders: antiqua,
+      allOrders: antiqua,
       expired: expiredInjections(expiredVaccines(antiqua))
     },
-    solarBuddhica: {
-      orders: solarBuddhica,
+    solarbuddhica: {
+      allOrders: solarBuddhica,
       expired: expiredInjections(expiredVaccines(solarBuddhica))
     },
     zerpfy: {
-      orders: zerpfy,
+      allOrders: zerpfy,
       expired: expiredInjections(expiredVaccines(zerpfy))
     }
   },

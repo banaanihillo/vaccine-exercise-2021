@@ -11,19 +11,14 @@ const routes = [
     component: Vaccinations
   },
   {
-    path: '/antiqua',
-    name: 'Antiqua',
-    component: () => import('../views/AntiquaVaccines.vue')
+    path: '/orders',
+    name: 'VaccineOrders',
+    component: () => import('../views/VaccineOrders.vue')
   },
   {
-    path: "/solar-buddhica",
-    name: "SolarBuddhica",
-    component: () => import("../views/SolarBuddhicaVaccines.vue")
-  },
-  {
-    path: "/zerpfy",
-    name: "Zerpfy",
-    component: () => import("../views/ZerpfyVaccines.vue")
+    path: "/orders/:producer",
+    name: "VaccineOrdersByProducer",
+    component: () => import("../views/VaccineProducer.vue")
   }
 ]
 

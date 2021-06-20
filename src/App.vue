@@ -2,16 +2,12 @@
   <div>
     <nav>
       <router-link to="/">Vaccinations</router-link>
-      <router-link to="/antiqua">Antiqua</router-link>
-      <router-link to="/solar-buddhica">Solar Buddhica</router-link>
-      <router-link to="/zerpfy">Zerpfy</router-link>
+      <router-link to="/orders">Orders</router-link>
     </nav>
     <main>
       <router-view :today="today" :thirtyDays="thirtyDays">
         <Vaccinations />
-        <AntiquaVaccines />
-        <SolarBuddhicaVaccines />
-        <ZerpfyVaccines />
+        <VaccineOrders />
       </router-view>
     </main>
     <footer>
@@ -25,16 +21,12 @@
 
 <script>
 import Vaccinations from "./views/Vaccinations.vue"
-import AntiquaVaccines from "./views/AntiquaVaccines.vue"
-import SolarBuddhicaVaccines from "./views/SolarBuddhicaVaccines.vue"
-import ZerpfyVaccines from "./views/ZerpfyVaccines.vue"
+import VaccineOrders from "./views/VaccineOrders.vue"
 export default {
   name: "App",
   components: {
     Vaccinations,
-    AntiquaVaccines,
-    SolarBuddhicaVaccines,
-    ZerpfyVaccines
+    VaccineOrders
   },
   data() {
     return {
@@ -76,5 +68,6 @@ nav {
   flex-flow: row nowrap;
   gap: 1em;
   justify-content: center;
+  padding-bottom: 1em;
 }
 </style>
