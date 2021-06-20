@@ -7,11 +7,16 @@
       <router-link to="/zerpfy">Zerpfy</router-link>
     </nav>
     <main>
-      <router-view />
+      <router-view :today="today" :thirtyDays="thirtyDays">
+        <Vaccinations />
+        <AntiquaVaccines />
+        <SolarBuddhicaVaccines />
+        <ZerpfyVaccines />
+      </router-view>
     </main>
     <footer>
       <small>
-        It's {{today.slice(0, today.indexOf("T"))}} today.
+        It's {{dateISO}} today.
         (Not really, but for the purposes of this exercise.)
       </small>
     </footer>
@@ -19,10 +24,33 @@
 </template>
 
 <script>
+import Vaccinations from "./views/Vaccinations.vue"
+import AntiquaVaccines from "./views/AntiquaVaccines.vue"
+import SolarBuddhicaVaccines from "./views/SolarBuddhicaVaccines.vue"
+import ZerpfyVaccines from "./views/ZerpfyVaccines.vue"
 export default {
+  name: "App",
+  components: {
+    Vaccinations,
+    AntiquaVaccines,
+    SolarBuddhicaVaccines,
+    ZerpfyVaccines
+  },
   data() {
     return {
-      today: new Date("2021-04-12T11:10:06.473587Z").toISOString()
+      today: new Date("2021-04-12T11:10:06.473587Z"),
+      // 86400000 milliseconds in a day
+      thirtyDays: (86400000 * 30)
+    }
+  },
+  computed: {
+    dateTimeISO() {
+      return this.today.toISOString()
+    },
+    dateISO() {
+      return this.dateTimeISO.slice(
+        0, this.dateTimeISO.indexOf("T")
+      )
     }
   }
 }
