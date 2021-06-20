@@ -1,17 +1,21 @@
 <template>
   <div>
     <p>
-      {{antiqua.length}}
+      {{antiqua.orders.length}} Antiqua orders made.
+    </p>
+    <p>
+      {{antiqua.expired}} Antiqua injections have expired.
     </p>
   </div>
 </template>
 
 <script>
-import antiqua from "../../resources/antiqua.json"
+
 export default {
-  data() {
-    return {
-      antiqua
+  name: "AntiquaVaccines",
+  computed: {
+    antiqua() {
+      return this.$store.state.antiqua
     }
   }
 }

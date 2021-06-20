@@ -1,30 +1,21 @@
 <template>
   <div>
     <p>
-      {{zerpfy.length}} Zerpfy orders made.
+      {{zerpfy.orders.length}} Zerpfy orders made.
     </p>
     <p>
-      {{expiredVaccines.length}} vaccines have expired.
+      {{zerpfy.expired}} Zerpfy injections have expired.
     </p>
   </div>
 </template>
 
 <script>
-import zerpfy from "../../resources/zerpfy.json"
+
 export default {
-  props: {
-    today: Date,
-    thirtyDays: Number
-  },
-  data() {
-    return {
-      zerpfy,
-      expiredVaccines: zerpfy.filter((zerpfyVaccine) => {
-        return (
-          new Date(zerpfyVaccine.arrived)
-          <= new Date(this.$props.today - this.$props.thirtyDays)
-        )
-      })
+  name: "ZerpfyVaccines",
+  computed: {
+    zerpfy() {
+      return this.$store.state.zerpfy
     }
   }
 }

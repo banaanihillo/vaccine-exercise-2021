@@ -1,17 +1,21 @@
 <template>
   <div>
     <p>
-      {{solarBuddhica.length}} Solar Buddhica vaccines available.
+      {{solarBuddhica.orders.length}} Solar Buddhica orders made.
+    </p>
+    <p>
+      {{solarBuddhica.expired}} Solar Buddhica injections have expired.
     </p>
   </div>
 </template>
 
 <script>
-import solarBuddhica from "../../resources/solarBuddhica.json"
+
 export default {
-  data() {
-    return {
-      solarBuddhica
+  name: "SolarBuddhicaVaccines",
+  computed: {
+    solarBuddhica() {
+      return this.$store.state.solarBuddhica
     }
   }
 }
