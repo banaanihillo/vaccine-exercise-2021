@@ -1,10 +1,10 @@
 <template>
   <div>
     <p>
-      {{orders.allOrders.length}} {{producerName}} orders made.
+      {{orders.length}} {{producerName}} orders made.
     </p>
     <p>
-      {{orders.expired}} {{producerName}} injections have expired.
+      {{expired}} {{producerName}} injections have expired.
     </p>
   </div>
 </template>
@@ -16,6 +16,9 @@ export default {
   computed: {
     orders() {
       return this.$store.state[this.producerKey]
+    },
+    expired() {
+      return this.expiredInjections(this.expiredVaccines(this.orders))
     },
     producerName() {
       return (
@@ -30,6 +33,21 @@ export default {
     },
     producerKey() {
       return this.$route.params.producer.replace(/-/g, "")
+    }
+  },
+  methods: {
+    expiredVaccines(orders) {
+      return orders.filter((vaccine) => {
+        return (
+          new Date(vaccine.arrived)
+          <= this.$store.state.date.thirtyDaysAgo
+        )
+      })
+    },
+    expiredInjections(expiredVaccines) {
+      return expiredVaccines.reduce((accumulator, vaccine) => {
+        return (accumulator + vaccine.injections)
+      }, 0)
     }
   }
 }
