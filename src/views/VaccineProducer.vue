@@ -6,6 +6,9 @@
     <p>
       {{expired}} {{producerName}} injections have expired.
     </p>
+    <p>
+      {{valid}} valid {{producerName}} injections are still available.
+    </p>
   </div>
 </template>
 
@@ -20,6 +23,9 @@ export default {
     expired() {
       return this.expiredInjections(this.expiredVaccines(this.orders))
     },
+    valid() {
+      return this.expiredInjections(this.validVaccines(this.orders))
+    },
     producerName() {
       return (
         this.$route.params.producer
@@ -33,21 +39,30 @@ export default {
     },
     producerKey() {
       return this.$route.params.producer.replace(/-/g, "")
+    },
+    thirtyDaysAgo() {
+      return this.$store.state.date.thirtyDaysAgo
     }
   },
   methods: {
     expiredVaccines(orders) {
-      return orders.filter((vaccine) => {
-        return (
-          new Date(vaccine.arrived)
-          <= this.$store.state.date.thirtyDaysAgo
-        )
-      })
+      return orders.filter(this.hasExpired)
     },
     expiredInjections(expiredVaccines) {
       return expiredVaccines.reduce((accumulator, vaccine) => {
         return (accumulator + vaccine.injections)
       }, 0)
+    },
+    hasExpired(vaccine) {
+      return (
+        new Date(vaccine.arrived)
+        <= this.thirtyDaysAgo
+      )
+    },
+    validVaccines(orders) {
+      return orders.filter((vaccine) => {
+        return (!this.hasExpired(vaccine))
+      })
     }
   }
 }
