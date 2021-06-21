@@ -1,13 +1,17 @@
 <template>
   <div>
+    <h2> {{producerName}} </h2>
     <p>
-      {{orders.length}} {{producerName}} orders made.
+      {{fulfilledOrders.length + pendingOrders.length}} orders made.
     </p>
     <p>
-      {{expired}} {{producerName}} injections have expired.
+      {{fulfilledOrders.length}} orders fulfilled.
     </p>
     <p>
-      {{valid}} valid {{producerName}} injections are still available.
+      {{expired}} injections have expired.
+    </p>
+    <p>
+      {{valid}} valid injections are still available.
     </p>
   </div>
 </template>
@@ -17,14 +21,21 @@
 export default {
   name: "VaccineProducer",
   computed: {
-    orders() {
-      return this.$store.state[this.producerKey]
+    fulfilledOrders() {
+      return this.$store.state[this.producerKey].fulfilledOrders
+    },
+    pendingOrders() {
+      return this.$store.state[this.producerKey].pendingOrders
     },
     expired() {
-      return this.expiredInjections(this.expiredVaccines(this.orders))
+      return this.expiredInjections(
+        this.expiredVaccines(this.pendingOrders)
+      )
     },
     valid() {
-      return this.expiredInjections(this.validVaccines(this.orders))
+      return this.expiredInjections(
+        this.validVaccines(this.pendingOrders)
+      )
     },
     producerName() {
       return (
