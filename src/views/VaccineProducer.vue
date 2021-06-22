@@ -7,11 +7,10 @@
     <p>
       {{fulfilledOrders.length}} orders fulfilled.
     </p>
-    <p>
-      {{expired}} injections have expired.
-    </p>
-    <p>
-      {{valid}} valid injections are still available.
+    <p aria-live="polite">
+      {{expiredInjections}} injections have expired.
+      <br />
+      {{validInjections}} valid injections are still available.
     </p>
   </div>
 </template>
@@ -27,15 +26,16 @@ export default {
     pendingOrders() {
       return this.$store.state[this.producerKey].pendingOrders
     },
-    expired() {
-      return this.expiredInjections(
+    expiredInjections() {
+      return this.numberOfInjections(
         this.expiredVaccines(this.pendingOrders)
       )
     },
     valid() {
-      return this.expiredInjections(
-        this.validVaccines(this.pendingOrders)
-      )
+      return this.validVaccines(this.pendingOrders)
+    },
+    validInjections() {
+      return this.numberOfInjections(this.valid)
     },
     producerName() {
       return (
@@ -59,8 +59,8 @@ export default {
     expiredVaccines(orders) {
       return orders.filter(this.hasExpired)
     },
-    expiredInjections(expiredVaccines) {
-      return expiredVaccines.reduce((accumulator, vaccine) => {
+    numberOfInjections(vaccines) {
+      return vaccines.reduce((accumulator, vaccine) => {
         return (accumulator + vaccine.injections)
       }, 0)
     },

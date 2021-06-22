@@ -150,4 +150,8 @@ fieldset {
   gap: 1em;
   margin: 1em auto;
 }
+
+p {
+  line-height: 1.5em;
+}
 </style>
